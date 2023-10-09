@@ -16,7 +16,7 @@ const Key = ({ k, bg }) => {
           bg === "bg-white" ? "border-white" : "border-black"
         } z-10 rotate-45 w-full`}
       >
-        <h2 className="hidden"></h2>
+        <h2 className="hidden">hello</h2>
       </div>
     </div>
   );

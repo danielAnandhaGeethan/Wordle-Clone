@@ -26,21 +26,25 @@ const Body = ({
 
   useEffect(() => {
     if (row === 6 && !win) {
-      enqueueSnackbar("Give It Another Go", {
-        variant: "info",
-        autoHideDuration: 3000,
-      });
+      setTimeout(() => {
+        enqueueSnackbar("GIVE IT ANOTHER GO", {
+          variant: "info",
+          autoHideDuration: 3000,
+        });
+      }, 400);
     }
-  }, [row]);
+  }, [row, win]);
 
   const changeBox = (e) => {
+    if (row > 5) return;
+
     let x = e.target.value.toUpperCase();
     setWord(x);
 
     const newData = [...data];
     newData[row] = x.split("");
 
-    for (let i = 0; i < 6 - x.length; i++) {
+    for (let i = 0; i < 5 - x.length; i++) {
       newData[row].push("");
     }
 
@@ -50,11 +54,13 @@ const Body = ({
   const check = async (e) => {
     e.preventDefault();
 
+    if (row > 5) return;
+
     const given = word;
     const newEqual = [...equal];
 
     try {
-      const response = await axios.get(`${url}${given.toLowerCase()}`);
+      await axios.get(`${url}${given.toLowerCase()}`);
     } catch (err) {
       enqueueSnackbar("Invaid Word", {
         variant: "error",
@@ -78,12 +84,12 @@ const Body = ({
       }
     }
 
-    if (cnt === 6) {
+    if (cnt === 5) {
       setWin(true);
     }
     setEqual(newEqual);
     setWord("");
-    if (word.length === 6) setRow((prev) => prev + 1);
+    if (word.length === 5) setRow((prev) => prev + 1);
   };
 
   return (

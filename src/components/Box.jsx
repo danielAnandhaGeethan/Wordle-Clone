@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { values } from "../data/data";
 
 const Box = ({ d, bg, check }) => {
   const [bgColor, setBgColor] = useState("");
